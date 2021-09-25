@@ -1,0 +1,25 @@
+.Card {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 2rem;
+    margin-top: 8rem;
+    background-color: rgba(196, 196, 196, 0.8);
+    border: 1px solid #000000;
+    box-shadow: 5px 5px 10px;
+
+    &__Tittle {
+        margin-bottom: 1.5rem;
+    }
+
+    &__Input {
+        margin: 0.5rem auto;
+        background-color: #ffffff;
+        border-radius: 5px;
+    }
+
+    &__Button {
+        margin: 1.5rem auto 0.5rem auto;
+    }
+}

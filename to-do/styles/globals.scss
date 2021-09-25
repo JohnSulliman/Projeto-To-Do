@@ -3,3 +3,21 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  background-color: #78909C;
+}
+
+a {
+  text-decoration: none;
+}
+
+button.MuiButtonBase-root.MuiButton-root {
+  background-color: #198D95;
+  border: 1px solid #102F34;
+  padding: 10px 40px;
+
+  &:hover {
+    background-color: #126369;
+  }
+}
