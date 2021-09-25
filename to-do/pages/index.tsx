@@ -1,8 +1,11 @@
 import type { NextPage } from 'next'
+import Lobby from './Lobby'
+import CreateJob from './CreateJob'
+import { Grid } from '@mui/material'
 
 const Home: NextPage = () => {
   return (
-    <h1>Primeiro Teste</h1>
+    <Lobby></Lobby>
   )
 }
 

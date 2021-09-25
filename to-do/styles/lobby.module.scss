@@ -1,0 +1,43 @@
+.lobby {
+    display: flex;
+    background-color: blue;
+    height: 100vh;
+}
+
+.menu {
+    width: 15%;
+    background-color: #292D57;
+    display: flex;
+    justify-content: center;
+}
+
+.app {
+    width: 85%;
+    background-color: #78909C;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.teste {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-top: 3vmax;
+}
+
+.a1 {
+    width: 10vmax;
+    margin: 0 0.6vmax;
+    display: flex;
+    justify-content: center;
+}
+
+.plus {
+    width: 40px;
+    height: 40px;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 4.5vmax;
+    display: flex;
+}

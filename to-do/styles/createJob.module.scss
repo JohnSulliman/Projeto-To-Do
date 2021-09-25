@@ -1,0 +1,20 @@
+.window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgb(245, 245, 245);
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    width: 20vmax;
+    height: 20vmax;
+    margin-left: -10vmax;
+    margin-top: -10vmax;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.textField {
+    background-color: white;
+}
