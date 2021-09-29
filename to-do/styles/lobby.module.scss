@@ -1,43 +1,83 @@
 .lobby {
     display: flex;
-    background-color: blue;
     height: 100vh;
+
+    &__menu {
+        width: 15%;
+        padding-top: 1rem;
+        background-color: #292D57;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__image {
+            border-radius: 50rem;
+        }
+
+        &__title {
+            text-align: center;
+            font-size: 18px;
+            color: #E0E0E0;
+            margin: 0.5rem auto 2rem auto;
+        }
+
+        &__config {
+            color: #E0E0E0;
+            margin: 0.5rem;
+        }
+
+        &__None {
+            color: #778899;
+            margin: 0.5rem;
+        }
+    }
+
+    &__body {
+        width: 85%;
+    }
+
+    &__head {
+        text-align: center;
+        margin-top: 3vmax;
+        border-bottom: 1px solid black;
+
+        &__title {
+
+            padding-inline: 2rem;
+        }
+    }
+
+    &__button {
+        margin: 1rem auto 1rem 4.5rem ;
+    }
+    
+    &__logout {
+        color: #E0E0E0;
+    }
 }
 
-.menu {
-    width: 15%;
-    background-color: #292D57;
-    display: flex;
-    justify-content: center;
-}
 
-.app {
-    width: 85%;
-    background-color: #78909C;
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-}
 
-.teste {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid black;
-    margin-top: 3vmax;
-}
 
-.a1 {
-    width: 10vmax;
-    margin: 0 0.6vmax;
-    display: flex;
-    justify-content: center;
-}
+// .teste {
+//     display: flex;
+//     align-items: center;
+//     border-bottom: 1px solid black;
+//     margin-top: 3vmax;
+// }
 
-.plus {
-    width: 40px;
-    height: 40px;
-    background-color: red;
-    border-radius: 50%;
-    margin-left: 4.5vmax;
-    display: flex;
-}
+// .a1 {
+//     width: 10vmax;
+//     margin: 0 0.6vmax;
+//     display: flex;
+//     justify-content: center;
+// }
+
+// .plus {
+//     width: 40px;
+//     height: 40px;
+//     background-color: red;
+//     border-radius: 50%;
+//     margin-left: 4.5vmax;
+//     display: flex;
+// }

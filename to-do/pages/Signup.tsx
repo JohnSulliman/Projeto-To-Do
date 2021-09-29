@@ -1,15 +1,17 @@
-import Head from 'next/head'
+import Head from 'next/head';
 import { Grid,
   Typography,
   TextField, 
-  Button } from '@mui/material'
-import styles from '../styles/signup.module.scss'
+  Button } from '@mui/material';
+import styles from '../styles/signup.module.scss';
 
-import type { NextPage } from 'next'
+import type { NextPage } from 'next';
+
 
 const Signup: NextPage = () => {
 
   return (
+
     <>
       <Head>
         <title>To-Do Blue-EdTech / Cadastro </title>

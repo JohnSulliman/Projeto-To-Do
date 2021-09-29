@@ -1,15 +1,19 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { Grid,
   Typography,
   TextField, 
-  Button } from '@mui/material'
-import styles from '../styles/index.module.scss'
+  Button } from '@mui/material';
+import styles from '../styles/index.module.scss';
 
-import type { NextPage } from 'next'
-import Lobby from './Lobby'
-import CreateJob from './CreateJob'
+import type { NextPage } from 'next';
+import Lobby from './Lobby';
+import CreateJob from '../components/CreateJob';
 
-const Login: NextPage = () => {
+
+function Login() {
+
+  const router = useRouter();
 
   return (
     <>
@@ -21,14 +25,14 @@ const Login: NextPage = () => {
 
       <Grid container justifyContent="center" alignItems="center">
         <Grid item>
-          <div className={styles.Card}>
-            <Typography className={styles.Card__Tittle}>
+          <div className={styles.card}>
+            <Typography className={styles.card__title}>
               <h1> To-Do Blue-EdTech </h1>
             </Typography>
             
             <form>
               <TextField 
-                className={styles.Card__Input} 
+                className={styles.card__input} 
                 label="Usuário" 
                 variant="outlined" 
                 size="small" />
@@ -36,17 +40,18 @@ const Login: NextPage = () => {
 
             <form>
               <TextField 
-                className={styles.Card__Input} 
+                className={styles.card__input} 
                 label="Senha" 
                 variant="outlined" 
                 type="password"
                 size="small" />
             </form>
-
+            
             <Button 
-              className={styles.Card__Button} 
+              className={styles.card__button} 
               variant="contained" 
-              size="small" > 
+              size="small" 
+              onClick={() => router.push('/Lobby')}> 
               Entrar 
             </Button>
 
