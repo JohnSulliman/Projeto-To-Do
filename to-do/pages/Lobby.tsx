@@ -10,9 +10,16 @@ import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from "react";
 import CreateJob from '../components/CreateJob';
 import styles from '../styles/lobby.module.scss';
+import { TextField } from '@mui/material';
 
 function clicou() {
     alert('Criar tarefa')
+function chama() {
+    return (
+        <Grid>
+            <CreateJob></CreateJob>
+        </Grid>
+    )  
 }
 
 function Lobby() {
