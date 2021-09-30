@@ -12,17 +12,12 @@ import CreateJob from '../components/CreateJob';
 import styles from '../styles/lobby.module.scss';
 import { TextField } from '@mui/material';
 
-function clicou() {
-    alert('Criar tarefa')
-function chama() {
-    return (
-        <Grid>
-            <CreateJob></CreateJob>
-        </Grid>
-    )  
-}
 
 function Lobby() {
+
+    const clicou = () => {
+        alert('Criar tarefa')
+    }
 
     return(
         <>
