@@ -11,13 +11,48 @@ import React, { useState } from "react";
 import CreateJob from '../components/CreateJob';
 import styles from '../styles/lobby.module.scss';
 import { TextField } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { Select , MenuItem } from '@mui/material';
+import FormControl from '@mui/material/FormControl';
+import Teste from './teste';
+import InputLabel from '@mui/material/InputLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import ReactDOM from 'react-dom';
+
+function refreshPage() {
+    ReactDOM.render(<Lobby />, document.getElementById('root'));
+}
+
+function reRender() {
+    // calling the forceUpdate() method
+    this.forceUpdate();
+  };
+
+function aaa() {
+    <Teste></Teste>
+}
 
 
 function Lobby() {
+    const [open, setOpen] = React.useState(false);
 
-    const clicou = () => {
-        alert('Criar tarefa')
-    }
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+      };
+
+    const [age, setAge] = React.useState('');
 
     return(
         <>
@@ -58,10 +93,47 @@ function Lobby() {
                         <span className={styles.lobby__head__title}>Data de Conclusão</span>
                         <span className={styles.lobby__head__title}>Substatus</span>
                     </Grid>
-                    <Fab onClick={clicou} className={styles.lobby__button}>
+                    <Fab onClick={handleClickOpen} className={styles.lobby__button}>
                         <AddIcon />
                     </Fab>
+                    <Dialog open={open} onClose={handleClose}>
+                    <DialogTitle>Nova Atividade</DialogTitle>
+                    <DialogContent>
+                    <div className={styles.test}>
+                    <TextField
+                        autoFocus
+                        margin="dense"
+                        id="name"
+                        label="Nome da Atividade"
+                        variant="standard"
+                        size="small"
+                    />
+                    <FormControl required sx={{ m: 1, minWidth: 320 }}>
+                    <InputLabel id="demo-simple-select-required-label">Age</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-required-label"
+                    id="demo-simple-select-required"
+                    value={age}
+                    label="Age"
+                    onChange={handleChange}
+                    >
+                    <MenuItem value={10}>Diário</MenuItem>
+                    <MenuItem value={20}>Semanal</MenuItem>
+                    <MenuItem value={30}>Mensal</MenuItem>
+                    </Select>
+                    </FormControl>
+                    </div>
+                    
+                    </DialogContent>
+                    <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Subscribe</Button>
+                    </DialogActions>
+                </Dialog>
                 </Grid>
+                <Button onClick={aaa}>Cancel</Button>
+                <Button onClick={refreshPage}>refresh</Button>
+                
             </Grid>
         </>
     )
