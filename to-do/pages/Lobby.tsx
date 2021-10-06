@@ -23,15 +23,6 @@ import InputLabel from '@mui/material/InputLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import ReactDOM from 'react-dom';
 
-function refreshPage() {
-    ReactDOM.render(<Lobby />, document.getElementById('root'));
-}
-
-function reRender() {
-    // calling the forceUpdate() method
-    this.forceUpdate();
-  };
-
 function aaa() {
     <Teste></Teste>
 }
@@ -39,6 +30,7 @@ function aaa() {
 
 function Lobby() {
     const [open, setOpen] = React.useState(false);
+    const [open1, setOpen1] = React.useState(false);
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -132,8 +124,7 @@ function Lobby() {
                 </Dialog>
                 </Grid>
                 <Button onClick={aaa}>Cancel</Button>
-                <Button onClick={refreshPage}>refresh</Button>
-                
+                <Button onClick={() => setOpen1(true)}>refresh</Button>               
             </Grid>
         </>
     )
