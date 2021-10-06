@@ -50,6 +50,7 @@ function reRender() {
 
 function Lobby() {
     const [open, setOpen] = React.useState(false);
+    const [open1, setOpen1] = React.useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
