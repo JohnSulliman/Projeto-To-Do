@@ -1,19 +1,38 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Grid,
+import { useState } from 'react';
+import { 
+  Grid,
   Typography,
   TextField, 
-  Button } from '@mui/material';
+  Button 
+    } from '@mui/material';
+import {login} from '../api/axios';
 import styles from '../styles/index.module.scss';
-
-import type { NextPage } from 'next';
-import Lobby from './Lobby';
-import CreateJob from '../components/CreateJob';
 
 
 function Login() {
 
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
   const router = useRouter();
+
+  const [error, setError] = useState(false);
+
+  const submitHandler = async (event:any) => {
+    event.preventDefault();
+
+    try {
+      await login(userName, password).then((response:any) => {
+        localStorage.setItem("token", response.data);
+      });
+      router.push("/Lobby");
+    } catch (err) {
+      console.error(err);
+      setError(true);
+    }
+  };
 
   return (
     <>
@@ -23,44 +42,50 @@ function Login() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Grid container justifyContent="center" alignItems="center">
-        <Grid item>
-          <div className={styles.card}>
-            <Typography className={styles.card__title}>
-              <h1> To-Do Blue-EdTech </h1>
-            </Typography>
-            
-            <form>
-              <TextField 
-                className={styles.card__input} 
-                label="Usuário" 
-                variant="outlined" 
-                size="small" />
-            </form>
+      <main>
+        <form onSubmit={submitHandler}>
+          <Grid container justifyContent="center" alignItems="center">
+            <Grid item>
+              <div className={styles.card}>
+                <Typography className={styles.card__title}>
+                  <h1> To-Do Blue-EdTech </h1>
+                </Typography>
+                
+                <form>
+                  <TextField 
+                    className={styles.card__input} 
+                    label="Usuário" 
+                    variant="outlined" 
+                    size="small" 
+                    onChange={(e) => setUserName(e.target.value)}/>
+                </form>
 
-            <form>
-              <TextField 
-                className={styles.card__input} 
-                label="Senha" 
-                variant="outlined" 
-                type="password"
-                size="small" />
-            </form>
-            
-            <Button 
-              className={styles.card__button} 
-              variant="contained" 
-              size="small" 
-              onClick={() => router.push('/Lobby')}> 
-              Entrar 
-            </Button>
+                <form>
+                  <TextField 
+                    className={styles.card__input} 
+                    label="Senha" 
+                    variant="outlined" 
+                    type="password"
+                    size="small" 
+                    onChange={(e) => setPassword(e.target.value)}/>
+                </form>
+                
+                <Button 
+                  className={styles.card__button} 
+                  variant="contained" 
+                  size="small" 
+                  type="submit"> 
+                  Entrar 
+                </Button>
 
-            <Typography>
-              <small> Não possui uma conta? <a href="/Signup">Cadastre-se!</a> </small>
-            </Typography>
-          </div>
-        </Grid>
-      </Grid>
+                <Typography>
+                  <small> Não possui uma conta? <a href="/Signup">Cadastre-se!</a> </small>
+                </Typography>
+              </div>
+            </Grid>
+          </Grid>
+        </form>
+      </main>
     </>
   )
 }

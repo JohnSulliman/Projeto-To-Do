@@ -4,25 +4,21 @@ import {
     Button,
     Fab,
     Grid,
-    Icon,
-    Typography
-} from '@mui/material';
+    Typography,
+    TextField, 
+    Dialog, 
+    DialogActions, 
+    DialogContent,
+    DialogTitle,
+    Select,
+    MenuItem,
+    FormControl,
+    InputLabel
+        } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from "react";
-import Jobs from '../components/Jobs';
-import styles from '../styles/lobby.module.scss';
-import { TextField } from '@mui/material';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { Select, MenuItem } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
-import Teste from './teste';
-import InputLabel from '@mui/material/InputLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import ReactDOM from 'react-dom';
+import styles from '../styles/lobby.module.scss';
 
 function refreshPage() {
     ReactDOM.render(<Lobby />, document.getElementById('root'));
@@ -60,7 +56,7 @@ function Lobby() {
         setOpen(false);
     };
 
-    const handleChange = (event) => {
+    const handleChange = (event: any) => {
         setAge(event.target.value);
     };
 
@@ -146,7 +142,7 @@ function Lobby() {
 
                         <DialogActions>
                             <Button onClick={handleClose}>Cancel</Button>
-                            <Button onClick={aaa}>Subscribe</Button>
+                            <Button>Subscribe</Button>
                         </DialogActions>
                     </Dialog>
                 </Grid>
