@@ -1,6 +1,6 @@
+import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import { 
   Grid,
   Typography,
@@ -13,12 +13,11 @@ import styles from '../styles/index.module.scss';
 
 function Login() {
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState(false);
 
   const router = useRouter();
-
-  const [error, setError] = useState(false);
 
   const submitHandler = async (event:any) => {
     event.preventDefault();

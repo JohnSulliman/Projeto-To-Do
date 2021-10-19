@@ -22,3 +22,16 @@ button.MuiButtonBase-root.MuiButton-root {
     background-color: #126369;
   }
 }
+
+button.MuiButtonBase-root.MuiFab-root {
+  border-radius: 50%;
+  background-color: #34386d;
+
+  &:hover {
+    background-color: #2a2f58;
+  }
+}
+
+input.MuiInputBase-input {
+  width: 100%;
+}

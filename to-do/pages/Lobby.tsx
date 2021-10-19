@@ -1,3 +1,4 @@
+import React from "react";
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import {
@@ -10,24 +11,38 @@ import {
     DialogActions, 
     DialogContent,
     DialogTitle,
-    Select,
-    MenuItem,
-    FormControl,
-    InputLabel
+    MenuItem
+    // Select,
+    // MenuItem,
+    // FormControl,
+    // InputLabel
         } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import React, { useState } from "react";
-import {get} from '../api/axios';
+import Tasks from '../components/Tasks'
+import { getUser } from '../api/axios';
+import { postTasks } from '../api/axios';
 import styles from '../styles/lobby.module.scss';
-import { CodeSharp } from '@mui/icons-material';
 
 
 function Lobby() {
-    const [openTask, setOpenTask] = React.useState(false);
+    const [user, setUser] = React.useState("");
     const [openLogout, setOpenLogout] = React.useState(false);
-    const [age, setAge] = React.useState('');
+    const [openTask, setOpenTask] = React.useState(false);
+    const [taskName, setTaskName] = React.useState("");
+    const [taskDate, setTaskDate] = React.useState("");
+    const [priority, setPriority] = React.useState(0);
+    const [error, setError] = React.useState(false);
+    console.log(taskName)
+    console.log(taskDate)
+    console.log(priority)
 
     const router = useRouter();
+
+    const fabStyle = {
+        position: 'absolute',
+        bottom: 16,
+        right: 16,
+    };
 
     const handleOpenTask = () => {
         setOpenTask(true);
@@ -37,16 +52,40 @@ function Lobby() {
         setOpenTask(false);
     };
 
+    const options = [
+        {
+            value: 1,
+            label: "Baixa",
+        },
+        {
+            value: 2,
+            label: "Média",
+        },
+        {
+            value: 3,
+            label: "Alta",
+        }
+    ]
+
+    const submitHandler = async (event:any) => {
+        event.preventDefault();
+    
+        try {
+          await postTasks(taskName, taskDate, priority)
+          console.log("0")
+        } catch (error) {
+          setError(true);
+          console.log("1")
+        };
+     
+    };
+        
     const handleOpenLogout = () => {
         setOpenLogout(true);
     };
-
+    
     const handleCloseLogout = () => {
         setOpenLogout(false);
-    };
-
-    const handleChange = (event: any) => {
-        setAge(event.target.value);
     };
 
     const logout = async (event: any) => {
@@ -56,11 +95,9 @@ function Lobby() {
     
     };
 
-    const [user, setUser] = React.useState("");
-
     React.useEffect(() => {
         if (!user) {
-            get().then((res:any) => setUser(res));
+            getUser().then((res:any) => setUser(res));
         }
     }, [user]);
 
@@ -95,79 +132,87 @@ function Lobby() {
                     </Typography>
                 </Grid>
 
-                <Grid item className={styles.lobby__body}>
-                    <Grid item className={styles.lobby__head}>
-                        <span className={styles.lobby__head__title}>Nome</span>
-                        <span className={styles.lobby__head__title}>Tempo de Atividade</span>
-                        <span className={styles.lobby__head__title}>Data de Registro</span>
-                        <span className={styles.lobby__head__title}>Status</span>
-                        <span className={styles.lobby__head__title}>Data de Previsão</span>
-                        <span className={styles.lobby__head__title}>Data de Conclusão</span>
-                        <span className={styles.lobby__head__title}>Substatus</span>
-                    </Grid>
+                <Tasks/>
 
-                    <Fab onClick={handleOpenTask} className={styles.lobby__button}>
+                <Dialog open={openLogout}>
+                    <DialogTitle>Logout</DialogTitle>
+
+                    <DialogContent>
+                        <Typography>
+                            Deseja sair da conta?
+                        </Typography>
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button onClick={handleCloseLogout}>Cancelar</Button>
+                        <Button onClick={logout}>Sair</Button>
+                    </DialogActions>
+                </Dialog>
+
+                <Fab
+                    onClick={handleOpenTask}
+                    style={fabStyle}
+                    color="primary" 
+                    aria-label="add" >
                         <AddIcon />
-                    </Fab>
+                </Fab>
 
-                    <Dialog open={openTask}>
-                        <DialogTitle>Nova Atividade</DialogTitle>
+                <Dialog open={openTask} className={styles.lobby__cardTask}>
+                    <DialogTitle>Nova Atividade</DialogTitle>
 
-                        <DialogContent>
-                            <div className={styles.test}>
+                    <DialogContent>
+                        <form onSubmit={submitHandler}>
+                            <Grid className={styles.lobby__cardTask__info}>
                                 <TextField
-                                    autoFocus
-                                    margin="dense"
-                                    id="name"
+                                    className={styles.lobby__cardTask__input}
                                     label="Nome da Atividade"
-                                    variant="standard"
-                                    size="small" 
+                                    variant="outlined"
+                                    size="small"
+                                    onChange={(e) => setTaskName(e.target.value)}
+                                    fullWidth 
                                 />
 
-                                <FormControl required sx={{ m: 1, minWidth: 320 }}>
-                                    <InputLabel id="demo-simple-select-required-label">
-                                        Age
-                                    </InputLabel>
+                                <TextField
+                                    className={styles.lobby__cardTask__input}
+                                    type="date"
+                                    variant="outlined"
+                                    size="small" 
+                                    onChange={(e) => setTaskDate(e.target.value)}
+                                    fullWidth
+                                />
 
-                                    <Select
-                                        labelId="demo-simple-select-required-label"
-                                        id="demo-simple-select-required"
-                                        value={age}
-                                        label="Age"
-                                        onChange={handleChange}
-                                    >
-                                        <MenuItem value={10}>Diário</MenuItem>
-                                        <MenuItem value={20}>Semanal</MenuItem>
-                                        <MenuItem value={30}>Mensal</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </div>
-                        </DialogContent>
+                                <TextField
+                                    className={styles.lobby__cardTask__input}
+                                    label="Prioridade"
+                                    variant="outlined"
+                                    size="small" 
+                                    onChange={(e) => setPriority(Number(e.target.value))}
+                                    select
+                                    value={priority}
+                                    SelectProps={{
+                                        native: true,
+                                    }}
+                                    fullWidth
+                                >
+                                    {options.map((option) => (
+                                        <option key={option.value} value={option.value}>
+                                            {option.label}
+                                        </option>
+                                    ))}
+                                </TextField>
+                            </Grid>
 
-                        <DialogActions>
-                            <Button onClick={handleCloseTask}>Cancel</Button>
-                            <Button>Subscribe</Button>
-                        </DialogActions>
-                    </Dialog>
+                            <DialogActions>
+                                <Button onClick={handleCloseTask}>Cancel</Button>
+                                <Button type="submit" onClick={handleCloseTask}>Subscribe</Button>
+                            </DialogActions>
+                        </form>
+                    </DialogContent>
 
-                    <Dialog open={openLogout}>
-                        <DialogTitle>Logout</DialogTitle>
-
-                        <DialogContent>
-                            <Typography>
-                                Deseja sair da conta?
-                            </Typography>
-                        </DialogContent>
-
-                        <DialogActions>
-                            <Button onClick={handleCloseLogout}>Cancelar</Button>
-                            <Button onClick={logout}>Sair</Button>
-                        </DialogActions>
-                    </Dialog>
-                </Grid>
+                </Dialog>
             </Grid>
         </>
     )
-}
+};
 
 export default Lobby

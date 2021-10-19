@@ -17,10 +17,9 @@ const Signup: NextPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verificPassword, setVerificPassword] = useState('');
-
-  const router = useRouter();
-
   const [error, setError] = useState(false);
+  
+  const router = useRouter();
 
   const submitHandler = async (event:any) => {
     event.preventDefault();
@@ -47,27 +46,27 @@ const Signup: NextPage = () => {
         <form onSubmit={submitHandler}>
           <Grid container justifyContent="center" alignItems="center">
             <Grid item>
-              <div className={styles.Card}>
-                <Typography className={styles.Card__Tittle}>
+              <div className={styles.card}>
+                <Typography className={styles.card__tittle}>
                   <h1> Cadastro </h1>
                 </Typography>
                 
                 <TextField 
-                  className={styles.Card__Input} 
+                  className={styles.card__input} 
                   label="Nome de usuário" 
                   variant="outlined" 
                   size="small" 
                   onChange={(e) => setUserName(e.target.value)}/>
 
                 <TextField 
-                  className={styles.Card__Input} 
+                  className={styles.card__input} 
                   label="E-mail" 
                   variant="outlined" 
                   size="small" 
                   onChange={(e) => setEmail(e.target.value)}/>
 
                 <TextField 
-                  className={styles.Card__Input} 
+                  className={styles.card__input} 
                   label="Senha" 
                   variant="outlined" 
                   type="password"
@@ -75,7 +74,7 @@ const Signup: NextPage = () => {
                   onChange={(e) => setPassword(e.target.value)}/>
 
                 <TextField 
-                  className={styles.Card__Input} 
+                  className={styles.card__input} 
                   label="Confirmar Senha" 
                   variant="outlined" 
                   type="password"
@@ -86,7 +85,7 @@ const Signup: NextPage = () => {
                   password === verificPassword ? "" 
                     : 
                   <>
-                    <small className={styles.Card__Error}>*Senha errada! Verifique sua senha.</small>
+                    <small className={styles.card__error}>*Senha errada! Verifique sua senha.</small>
                   </>
                 }
                 
@@ -96,7 +95,7 @@ const Signup: NextPage = () => {
                 <small>Número;</small>
 
                 <Button 
-                  className={styles.Card__Button} 
+                  className={styles.card__button} 
                   variant="contained" 
                   size="small" 
                   type="submit"> 

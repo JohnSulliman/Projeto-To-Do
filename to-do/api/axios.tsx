@@ -17,7 +17,7 @@ export const login = async (email:string, passwordHash:string) => {
     });
 };
 
-export const get = async () => {
+export const getUser = async () => {
     const response = await axios({
       method: "get",
       url: baseUrl + "/Users",
@@ -28,4 +28,26 @@ export const get = async () => {
     });
   
     return response.data;
+}
+
+export const postTasks = async (taskName:string, taskDate:string, priority:number) => {
+  const response = await axios({
+    method: "post",
+    url: baseUrl + "/Todo",
+    data: {
+      taskName,
+      taskDate,
+      priority
+    },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  });
+
+  return response.data;
+}
+
+export const getTasks = async () => {
+  
 }

@@ -18,17 +18,17 @@
             text-align: center;
             font-size: 18px;
             color: #E0E0E0;
-            margin: 0.5rem auto 2rem auto;
+            padding: 0.5rem 0 2rem 0;
         }
 
         &__config {
             color: #E0E0E0;
-            margin: 0.5rem;
+            padding: 0.5rem;
         }
 
         &__None {
             color: #778899;
-            margin: 0.5rem;
+            padding: 0.5rem;
         }
     }
 
@@ -42,7 +42,6 @@
         border-bottom: 1px solid black;
 
         &__title {
-
             padding-inline: 2rem;
         }
     }
@@ -58,9 +57,19 @@
             cursor: pointer;
         }
     }
-}
 
-.test {
-    display: flex;
-    flex-direction: column;
+    &__cardTask {
+        text-align: center;
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__input {
+            margin: 0.5rem auto;
+        }
+    }
+
 }
