@@ -10,9 +10,22 @@ export const register = async(userName:string, email:string, passwordHash:string
     });
 }
 
-export const login = async (userName:string, passwordHash:string) => {
+export const login = async (email:string, passwordHash:string) => {
     return await axios.post(baseUrl + "/Auth/Token", {
-      userName,
+      email,
       passwordHash,
     });
- };
+};
+
+export const get = async () => {
+    const response = await axios({
+      method: "get",
+      url: baseUrl + "/Users",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    });
+  
+    return response.data;
+}

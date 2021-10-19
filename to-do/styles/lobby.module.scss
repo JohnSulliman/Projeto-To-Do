@@ -53,6 +53,10 @@
     
     &__logout {
         color: #E0E0E0;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 

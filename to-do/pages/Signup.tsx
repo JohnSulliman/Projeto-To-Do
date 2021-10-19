@@ -79,20 +79,21 @@ const Signup: NextPage = () => {
                   label="Confirmar Senha" 
                   variant="outlined" 
                   type="password"
-                  size="small" 
+                  size="small"
                   onChange={(e) => setVerificPassword(e.target.value)}/>
 
-                  {
-                    password === verificPassword ? "" 
-                      : 
-                    <>
-                      <small>*Senha errada! Verifique sua senha</small>
-                      <small>A senha deve conter:</small>
-                      <small>Um símbolo;</small>
-                      <small>Uma letra maiúscula;</small>
-                      <small>Um número;</small>
-                    </>
-                  }
+                {
+                  password === verificPassword ? "" 
+                    : 
+                  <>
+                    <small className={styles.Card__Error}>*Senha errada! Verifique sua senha.</small>
+                  </>
+                }
+                
+                <small>A senha deve conter:</small>
+                <small>Caracter especial;</small>
+                <small>Letra maiúscula;</small>
+                <small>Número;</small>
 
                 <Button 
                   className={styles.Card__Button} 

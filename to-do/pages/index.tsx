@@ -13,7 +13,7 @@ import styles from '../styles/index.module.scss';
 
 function Login() {
 
-  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const router = useRouter();
@@ -24,7 +24,7 @@ function Login() {
     event.preventDefault();
 
     try {
-      await login(userName, password).then((response:any) => {
+      await login(email, password).then((response:any) => {
         localStorage.setItem("token", response.data);
       });
       router.push("/Lobby");
@@ -38,7 +38,7 @@ function Login() {
     <>
       <Head>
         <title>To-Do Blue-EdTech / Login </title>
-        <meta name="description" content="Página de Login da To-Do Blue-EdTech" />
+        <meta name="description" content="Página de Login da To-Do Blue-EdTech"/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -54,10 +54,10 @@ function Login() {
                 <form>
                   <TextField 
                     className={styles.card__input} 
-                    label="Usuário" 
+                    label="E-mail" 
                     variant="outlined" 
                     size="small" 
-                    onChange={(e) => setUserName(e.target.value)}/>
+                    onChange={(e) => setEmail(e.target.value)}/>
                 </form>
 
                 <form>

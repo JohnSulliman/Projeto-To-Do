@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import {
     Button,
     Fab,
@@ -17,50 +17,54 @@ import {
         } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from "react";
-import ReactDOM from 'react-dom';
+import {get} from '../api/axios';
 import styles from '../styles/lobby.module.scss';
-
-function refreshPage() {
-    ReactDOM.render(<Lobby />, document.getElementById('root'));
-}
-
-function reRender() {
-    // calling the forceUpdate() method
-    this.forceUpdate();
-};
-
-// function aaa() {
-//     const [jobs, setJobs] = React.useState(undefined);
-
-//     return(
-//         <>
-//             <Grid>
-//                 {jobs.map(jobs => {
-//                     <Jobs key={jobs.id} name={jobs.name}></Jobs>
-//                 })}
-//             </Grid>
-//         </>
-//     )
-// }
+import { CodeSharp } from '@mui/icons-material';
 
 
 function Lobby() {
-    const [open, setOpen] = React.useState(false);
-    const [open1, setOpen1] = React.useState(false);
+    const [openTask, setOpenTask] = React.useState(false);
+    const [openLogout, setOpenLogout] = React.useState(false);
+    const [age, setAge] = React.useState('');
 
-    const handleClickOpen = () => {
-        setOpen(true);
+    const router = useRouter();
+
+    const handleOpenTask = () => {
+        setOpenTask(true);
     };
 
-    const handleClose = () => {
-        setOpen(false);
+    const handleCloseTask = () => {
+        setOpenTask(false);
+    };
+
+    const handleOpenLogout = () => {
+        setOpenLogout(true);
+    };
+
+    const handleCloseLogout = () => {
+        setOpenLogout(false);
     };
 
     const handleChange = (event: any) => {
         setAge(event.target.value);
     };
 
-    const [age, setAge] = React.useState('');
+    const logout = async (event: any) => {
+        event.preventDefault();
+        localStorage.removeItem("token");
+        router.push("/");
+    
+    };
+
+    const [user, setUser] = React.useState("");
+
+    React.useEffect(() => {
+        if (!user) {
+            get().then((res:any) => setUser(res));
+        }
+    }, [user]);
+
+    const responseData = Array.from(user);
 
     return (
         <>
@@ -77,7 +81,9 @@ function Lobby() {
                     </Grid>
 
                     <Typography className={styles.lobby__menu__title}>
-                        <span>Nome do Usuário</span>
+                        {responseData.map((data:any) => (
+                            <span key={data.id}>{data.userName}</span>
+                        ))}
                     </Typography>
 
                     <Typography className={styles.lobby__menu__None}>
@@ -85,9 +91,7 @@ function Lobby() {
                     </Typography>
 
                     <Typography className={styles.lobby__menu__config}>
-                        <Link href="/">
-                            <a className={styles.lobby__logout}>Sair</a>
-                        </Link>
+                        <a onClick={handleOpenLogout} className={styles.lobby__logout}>Sair</a>
                     </Typography>
                 </Grid>
 
@@ -102,11 +106,11 @@ function Lobby() {
                         <span className={styles.lobby__head__title}>Substatus</span>
                     </Grid>
 
-                    <Fab onClick={handleClickOpen} className={styles.lobby__button}>
+                    <Fab onClick={handleOpenTask} className={styles.lobby__button}>
                         <AddIcon />
                     </Fab>
 
-                    <Dialog open={open}>
+                    <Dialog open={openTask}>
                         <DialogTitle>Nova Atividade</DialogTitle>
 
                         <DialogContent>
@@ -141,14 +145,26 @@ function Lobby() {
                         </DialogContent>
 
                         <DialogActions>
-                            <Button onClick={handleClose}>Cancel</Button>
+                            <Button onClick={handleCloseTask}>Cancel</Button>
                             <Button>Subscribe</Button>
                         </DialogActions>
                     </Dialog>
-                </Grid>
 
-                <Button>Cancel</Button>
-                <Button onClick={refreshPage}>refresh</Button>
+                    <Dialog open={openLogout}>
+                        <DialogTitle>Logout</DialogTitle>
+
+                        <DialogContent>
+                            <Typography>
+                                Deseja sair da conta?
+                            </Typography>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={handleCloseLogout}>Cancelar</Button>
+                            <Button onClick={logout}>Sair</Button>
+                        </DialogActions>
+                    </Dialog>
+                </Grid>
             </Grid>
         </>
     )
